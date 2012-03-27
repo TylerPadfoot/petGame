@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <AbsoluteLayout
+        android:id="@+id/AbsoluteLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_x="0dp"
+        android:layout_y="-1dp"
+        android:background="@drawable/tamagotchi3" >
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_x="3dp"
+            android:layout_y="63dp"
+            android:ems="10"
+            android:text="hunger" />
+
+        <EditText
+            android:id="@+id/EditText01"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_x="2dp"
+            android:layout_y="110dp"
+            android:ems="10"
+            android:text="sleepy" />
+
+        <EditText
+            android:id="@+id/EditText02"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_x="2dp"
+            android:layout_y="158dp"
+            android:ems="10"
+            android:text="discipline" />
+
+        <EditText
+            android:id="@+id/EditText03"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_x="2dp"
+            android:layout_y="202dp"
+            android:ems="10"
+            android:text="sickness" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/hunger"
+            android:layout_width="156dp"
+            android:layout_height="wrap_content"
+            android:layout_x="116dp"
+            android:layout_y="62dp"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/sleepy"
+            android:layout_width="156dp"
+            android:layout_height="wrap_content"
+            android:layout_x="116dp"
+            android:layout_y="109dp"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/discipline"
+            android:layout_width="156dp"
+            android:layout_height="wrap_content"
+            android:layout_x="116dp"
+            android:layout_y="153dp"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/sickness"
+            android:layout_width="156dp"
+            android:layout_height="wrap_content"
+            android:layout_x="114dp"
+            android:layout_y="198dp"
+            android:ems="10" />
+
+        <Button
+            android:id="@+id/feedSnack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="82dp"
+            android:layout_y="0dp"
+            android:text="Feed Snack" />
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:layout_x="168dp"
+            android:layout_y="0dp"
+            android:text="Play" />
+
+        <EditText
+            android:id="@+id/EditText04"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_x="3dp"
+            android:layout_y="252dp"
+            android:ems="10"
+            android:text="dirty" />
+
+        <EditText
+            android:id="@+id/EditText05"
+            android:layout_width="106dp"
+            android:layout_height="wrap_content"
+            android:layout_x="2dp"
+            android:layout_y="296dp"
+            android:ems="10"
+            android:text="fat" />
+
+        <EditText
+            android:id="@+id/dirty"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_x="114dp"
+            android:layout_y="254dp"
+            android:ems="10" />
+
+        <Button
+            android:id="@+id/clean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="3dp"
+            android:layout_y="436dp"
+            android:text="Clean" />
+
+        <Button
+            android:id="@+id/toggleLights"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_x="180dp"
+            android:layout_y="428dp"
+            android:text="Toggle Lights" />
+
+        <Button
+            android:id="@+id/scold"
+            android:layout_width="126dp"
+            android:layout_height="wrap_content"
+            android:layout_x="52dp"
+            android:layout_y="431dp"
+            android:text="Scold" />
+
+    </AbsoluteLayout>
+
+    <Button
+        android:id="@+id/feedMeal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feed Meal" />
+
+    <EditText
+        android:id="@+id/fat"
+        android:layout_width="129dp"
+        android:layout_height="wrap_content"
+        android:layout_x="127dp"
+        android:layout_y="298dp"
+        android:ems="10" />
+
+</AbsoluteLayout>
