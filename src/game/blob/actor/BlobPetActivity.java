@@ -1,4 +1,6 @@
-package com.games.blobpet;
+package game.blob.actor;
+
+import game.blob.actor.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,7 +8,8 @@ import java.io.FileOutputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.games.blobpet.*;
+import com.games.blobpet.R;
+
 import android.app.*;
 import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Context;
@@ -29,26 +32,26 @@ public class BlobPetActivity extends Activity {
 	private void updateGameState(){
 		timer.scheduleAtFixedRate(
 				new TimerTask(){
-				@Override
-				public void run() {
-			        SharedPreferences settings = getSharedPreferences("blob", 0);
-			       	pet.name = settings.getString("name", "Blob");
-			       	pet.asleep = settings.getBoolean("asleep", false);
-			       	pet.color = settings.getInt("color", 0);
-			       	pet.days = settings.getInt("days", 0);
-			       	pet.dirtyMeter = settings.getInt("dirtyMeter", 0);
-			       	pet.disciplineMeter = settings.getInt("disciplineMeter", 50);
-			       	pet.fat = settings.getInt("fat", 0);
-			       	pet.happinessMeter = settings.getInt("happinessMeter", 50);
-			       	pet.sleepinessMeter = settings.getInt("sleepinessMeter", 0);
-			       	pet.sicknessMeter = settings.getInt("sicknessMeter", 0);
-			       	pet.hours = settings.getInt("hours",0);
-			       	pet.months = settings.getInt("months", 0);
-			       	pet.years = settings.getInt("years",0);
-			       	pet.notify = settings.getBoolean("notify", false);
-			       	pet.message = settings.getString("message", "");
-			      // 	tempService();
-					}
+					@Override
+					public void run() {
+				        SharedPreferences settings = getSharedPreferences("blob", 0);
+				       	pet.name = settings.getString("name", "Blob");
+				       	pet.asleep = settings.getBoolean("asleep", false);
+				       	pet.color = settings.getInt("color", 0);
+				       	pet.days = settings.getInt("days", 0);
+				       	pet.dirtyMeter = settings.getInt("dirtyMeter", 0);
+				       	pet.disciplineMeter = settings.getInt("disciplineMeter", 50);
+				       	pet.fat = settings.getInt("fat", 0);
+				       	pet.happinessMeter = settings.getInt("happinessMeter", 50);
+				       	pet.sleepinessMeter = settings.getInt("sleepinessMeter", 0);
+				       	pet.sicknessMeter = settings.getInt("sicknessMeter", 0);
+				       	pet.hours = settings.getInt("hours",0);
+				       	pet.months = settings.getInt("months", 0);
+				       	pet.years = settings.getInt("years",0);
+				       	pet.notify = settings.getBoolean("notify", false);
+				       	pet.message = settings.getString("message", "");
+				      // 	tempService();
+						}
 				}
 				, 
 				0, 1000);

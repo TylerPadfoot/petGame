@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".BlobPetActivity"
+            android:name="game.blob.actor.BlobPetActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +19,6 @@
             </intent-filter>
         </activity>
     </application>
-           <service android:name=".BlobPetService">
+           <service android:name="game.blob.actor.BlobPetService">
             </service>
 </manifest>

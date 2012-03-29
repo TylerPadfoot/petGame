@@ -1,4 +1,4 @@
-package com.games.blobpet;
+package game.blob.actor;
 
 import java.util.*;
 import java.lang.*;
@@ -27,8 +27,8 @@ public class Blob implements BlobActions {
 	
 	Blob (String n, int c){
 		name = n;
-		Meal = new Food(40, 10, 1);
-		Snack = new Food(20, 40, 5);
+		Meal = new TempFood(40, 10, 1);
+		Snack = new TempFood(20, 40, 5);
 		hungerMeter = 0; //at 100, all bars empty. max 200 = death;
 		hours = 0;//no max
 		days = 0;

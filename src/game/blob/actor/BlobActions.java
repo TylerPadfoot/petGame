@@ -1,4 +1,4 @@
-package com.games.blobpet;
+package game.blob.actor;
 
 public interface BlobActions {
 	void bounceAround(); //bounces randomly

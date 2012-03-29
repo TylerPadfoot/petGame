@@ -1,10 +1,11 @@
-package com.games.blobpet;
+package game.blob.actor;
 
-public class Food {
+public abstract class Food {
 	int satiability;
 	int tastiness;
 	int fat;
-	Food(int s, int t, int f){
+	
+	public Food(int s, int t, int f){
 		satiability = s;
 		tastiness = t;
 		fat = f;

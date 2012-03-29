@@ -1,4 +1,4 @@
-package com.games.blobpet;
+package game.blob.actor;
 
 import java.util.Timer;
 import java.util.TimerTask;
