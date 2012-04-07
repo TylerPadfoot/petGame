@@ -5,23 +5,13 @@ import java.lang.*;
 import android.util.*;
 import android.os.*;
 
-public class Blob implements BlobActions {
-	String name;
+public class Blob extends Pet  {
 	Food Meal;
 	Food Snack;
-	int hungerMeter; //at 100, all bars empty. max 200 = death;
 	int hours;//no max
 	int days;
 	int months;
 	int years;
-	int happinessMeter;
-	int sleepinessMeter; //max 1080
-	int disciplineMeter;
-	int sicknessMeter;
-	int dirtyMeter;
-	int fat; // max 100
-	int color;
-	boolean asleep;
 	String message;
 	boolean notify;
 	
@@ -34,19 +24,78 @@ public class Blob implements BlobActions {
 		days = 0;
 		months = 0;
 		years = 0;
+		birthTime = System.currentTimeMillis();
 		happinessMeter = 50;
 		sleepinessMeter = 0; //max 1080
 		disciplineMeter = 50;
 		sicknessMeter = 50;
 		dirtyMeter = 0;
-		fat = 0; // max 100
+		size = 0; // max 100
 		asleep = false;
 		color = c;
 		message ="";
 		notify = false;
 	}
 	public void updateBlob(){
-		//updates age
+		updateAge();
+		updateHunger();
+		updateHappiness();
+		updateSleepiness();
+		updateSickliness();
+		updateCleansiness();
+	}
+	private void updateCleansiness(){
+		if(dirtyMeter >= 60){
+			this.happinessMeter -= 5;
+		}
+	}
+	private void updateSickliness(){
+		if(sicknessMeter >= 70){
+			//display sick face;
+			this.happinessMeter -= 10;
+			if (!this.asleep){
+				this.onDoNothing();
+				this.cry();
+				this.message="ACHOOO!";
+			}
+			if (sicknessMeter >= 150){
+				this.onDeath();
+			}
+		}
+	}
+	private void updateSleepiness(){
+		if (this.asleep){ // if asleep, wake up when sleepiness = 0
+			if (this.sleepinessMeter <= 0){
+				this.asleep = false; //wakes up
+			}
+		}
+		else{ //if not asleep, fall asleep when sleepiness = 1080
+			if (this.sleepinessMeter >= 1080){
+				this.onSleep();
+			}
+		}
+		
+		if(!this.asleep){//should not make trouble when asleep. when awake, likelihood to cause trouble increases.
+			int threshold = 100 - this.disciplineMeter;
+			Random generator = new Random(android.os.SystemClock.elapsedRealtime());//generator with randseed
+			int randChance = generator.nextInt(100); // creates a random digit from 0 to 100
+			if(randChance <= threshold){
+				this.message="Your blob is causing a nuisance.";
+			}
+		}
+	}
+	private void updateHappiness() {
+		if (!this.asleep){ //should not cry or bounce around while asleep
+			if (this.happinessMeter <= 30){
+				this.onDoNothing();
+				this.cry();
+				this.message="T_T";
+			}
+			else this.bounceAround();//necessary?	
+		}
+		
+	}
+	private void updateAge(){
 		if (this.hours >= 24){
 			this.hours = 0;
 			this.days += 1;
@@ -61,73 +110,23 @@ public class Blob implements BlobActions {
 			this.months = 0;
 			this.years += 1;
 		}
-		//end of age update
-		
-		//start of hunger mechanisms
+	}
+	private void updateHunger(){
 		if (!this.asleep){ //shouldn't die or poke for attention when asleep.
 			if (this.hungerMeter >= 200){
-				this.die();
+				this.onDeath();
 			}
 			else if(this.hungerMeter >= 100){
 				this.happinessMeter -= 5;
 				this.message="I'm hungry. Feed me! =(";
 			}
 		}
-		//end of hunger mechanisms
-		
-		//start of happiness
-		if (!this.asleep){ //should not cry or bounce around while asleep
-			if (this.happinessMeter <= 30){
-				this.stayStill();
-				this.cry();
-				this.message="T_T";
-			}
-			else this.bounceAround();//necessary?	
-		}
-		//end of happiness
-		
-		//start of sleepiness
-		if (this.asleep){ // if asleep, wake up when sleepiness = 0
-			if (this.sleepinessMeter <= 0){
-				this.asleep = false; //wakes up
-			}
-		}
-		else{ //if not asleep, fall asleep when sleepiness = 1080
-			if (this.sleepinessMeter >= 1080){
-				this.sleep();
-			}
-		}
-		//end of sleepiness
-		
-		if(!this.asleep){//should not make trouble when asleep. when awake, likelihood to cause trouble increases.
-			int threshold = 100 - this.disciplineMeter;
-			Random generator = new Random(android.os.SystemClock.elapsedRealtime());//generator with randseed
-			int randChance = generator.nextInt(100); // creates a random digit from 0 to 100
-			if(randChance <= threshold){
-				this.message="Your blob is causing a nuisance.";
-			}
-		}
-		
-		if(sicknessMeter >= 70){
-			//display sick face;
-			this.happinessMeter -= 10;
-			if (!this.asleep){
-				this.stayStill();
-				this.cry();
-				this.message="ACHOOO!";
-			}
-			if (sicknessMeter >= 150){
-				this.die();
-			}
-		}
-		if(dirtyMeter >= 60){
-			this.happinessMeter -= 5;
-		}
 	}
+	
 	public void giveMedication(){
 		this.sicknessMeter -= 50;
 		this.happinessMeter -= 40;
-		this.fat -= 30;
+		this.size -= 30;
 	}
 	public void feedMeal(){
 		this.eat(Meal);
@@ -141,26 +140,8 @@ public class Blob implements BlobActions {
 		//eat Meal or Snack; modifies happinessMeter and hungerMeter
 		this.happinessMeter += foodType.tastiness;
 		this.hungerMeter -= foodType.satiability;
-		this.fat += foodType.fat;
+		this.size += foodType.fat;
 	}
-	
-	public void sleep(){
-		//activates when sleepiness reaches 1080, deactivates when sleepiness = 0
-		//ticks sleeping per minute
-		
-		if (true/*gamestate == lightsOff*/){
-			this.snore(1);
-			this.sleepinessMeter -= 3; // for sleeping for 6 hours 
-		}
-		else 
-		{
-			this.snore(0);
-			this.sleepinessMeter -= 1; //for sleeping for 18 hours  with lights on.
-			this.happinessMeter -= 1;
-		}
-		this.asleep = true;
-	}
-
 	public void scold(){
 		//scold to +40 to discipline
 		this.disciplineMeter += 40;
@@ -188,16 +169,36 @@ public class Blob implements BlobActions {
 		//to display wobble animation when poked
 	}
 	
-	public void stayStill() {
+	public void onDoNothing() {
 		// TODO Auto-generated method stub
 		// stands still
 	}
 
-	public String pokeForAttention(String message) {
+	public void onWantAttention() {
 		// send push notification with 'message'
-		return message;
+		//return message;
+		// FIXME ShawnLim, do we want our blob to decide what message we send?
+		// i vote for just randomly picking from a list of messages
 	}
 
+	public void onSleep(){
+		//activates when sleepiness reaches 1080, deactivates when sleepiness = 0
+		//ticks sleeping per minute
+		
+		//TODO perhaps eventually, make the system more intelligient, such as a baby blob sleep more than old ones
+		if (true/*gamestate == lightsOff*/){
+			this.snore(1);
+			this.sleepinessMeter -= 3; // for sleeping for 6 hours 
+		}
+		else 
+		{
+			this.snore(0);
+			this.sleepinessMeter -= 1; //for sleeping for 18 hours  with lights on.
+			this.happinessMeter -= 1;
+		}
+		this.asleep = true;
+	}
+	
 	public void snore(int state) {
 		// display zzz
 		if (state == 1){
@@ -206,10 +207,10 @@ public class Blob implements BlobActions {
 		else if (state == 0){
 			//display zzz white on black
 		}
-		else return;
+		
 	}
 
-	public void poop() {
+	public void onPoop() {
 		//poop chances increased when hunger level > 80
 		this.dirtyMeter += 40;
 	}
@@ -219,13 +220,16 @@ public class Blob implements BlobActions {
 		
 	}
 
-	public void die() {
+	public void onDeath() {
 		// display dead blob, disables all actions
 		
 	}
 	
-	public void sadFace(){
-		//animates a sadface;
+	public void onSad(){
+		//animates a sadface =(;
+	}
+	public void onHappy(){
+		// happy face =D
 	}
 	
 }

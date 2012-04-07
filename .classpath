@@ -7,5 +7,13 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/home/lancelot/android-sdks/platforms/android-7/android.jar"/>
 	<classpathentry kind="lib" path="/home/lancelot/android-sdks/tools/support/annotations.jar"/>
+	<classpathentry kind="lib" path="/home/lancelot/Tools/android-sdk-linux/platforms/android-10/android.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="http://developer.android.com/reference/"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
