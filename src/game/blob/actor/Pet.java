@@ -1,4 +1,13 @@
 package game.blob.actor;
+
+import java.util.*;
+import java.lang.*;
+
+import android.text.format.Time;
+import android.util.*;
+import android.graphics.Color;
+import android.os.*;
+
 /**
  * replaces the BlobActions interface,
  * generic class for a pet,
@@ -9,6 +18,7 @@ package game.blob.actor;
 public abstract class Pet {
 	String name;
 	
+	Time age;
 	long birthTime;
 	
 	int hungerMeter; /** at 100, all bars empty. max 200 = death; */
@@ -17,31 +27,63 @@ public abstract class Pet {
 	int disciplineMeter;
 	int sicknessMeter;
 	int dirtyMeter;
-	int color;
+	
+	Color color;
 	
 	boolean asleep;
 	
 	int size; // max 100 changed from "fat" more generic
+	
+	public Pet(String n,Color c){
+		color = c;
+		name = n;
+		hungerMeter = 0; //at 100, all bars empty. max 200 = death;
+		happinessMeter = 50;
+		sleepinessMeter = 0; //max 1080
+		disciplineMeter = 50;
+		sicknessMeter = 50;
+		dirtyMeter = 0;
+		birthTime = System.currentTimeMillis();
+		//FIXME size start at 0?
+		size = 0; // max 100
+		asleep = false;
+	}
 	/**
 	 * specifies pet action when no action is happening
+	 * subclasses should override this method, unless you want to
+	 * actually do NOTHING
 	 */
 	void onDoNothing(){
 		
 	}
+	public long getAgeInMilli(){
+		return System.currentTimeMillis()-birthTime;
+	}
+	
+	/**
+	 * get the age of the pet
+	 * @return current time in a {@link android.text.format.Time}
+	 * 
+	 */
+	public Time getAge(){
+		age = new Time(Time.getCurrentTimezone());
+		age.set(getAgeInMilli());
+		return age;
+	}
 	/**
 	 * sends push notification for attention
 	 */
-	abstract void onWantAttention();
+	public abstract void onWantAttention();
 	/** 
 	 * specifies pet action when sleeping 
 	 */
-	abstract void onSleep();
+	public abstract void onSleep();
 	/** specifies pet action when pooping */
-	abstract void onPoop();
+	public abstract void onPoop();
 	/** specifies pet action when dead */
-	abstract void onDeath();
+	public abstract void onDeath();
 	/** specifies pet action when happy */
-	abstract void onHappy();
+	public abstract void onHappy();
 	/** specifies pet action when sad */
-	abstract void onSad();
+	public abstract void onSad();
 }

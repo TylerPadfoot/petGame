@@ -3,6 +3,7 @@ package game.blob.actor;
 import java.util.*;
 import java.lang.*;
 import android.util.*;
+import android.graphics.Color;
 import android.os.*;
 
 public class Blob extends Pet  {
@@ -15,24 +16,14 @@ public class Blob extends Pet  {
 	String message;
 	boolean notify;
 	
-	Blob (String n, int c){
-		name = n;
+	Blob (String n, Color c){
+		super(n,c);
 		Meal = new TempFood(40, 10, 1);
 		Snack = new TempFood(20, 40, 5);
-		hungerMeter = 0; //at 100, all bars empty. max 200 = death;
 		hours = 0;//no max
 		days = 0;
 		months = 0;
 		years = 0;
-		birthTime = System.currentTimeMillis();
-		happinessMeter = 50;
-		sleepinessMeter = 0; //max 1080
-		disciplineMeter = 50;
-		sicknessMeter = 50;
-		dirtyMeter = 0;
-		size = 0; // max 100
-		asleep = false;
-		color = c;
 		message ="";
 		notify = false;
 	}
@@ -191,7 +182,7 @@ public class Blob extends Pet  {
 			this.sleepinessMeter -= 3; // for sleeping for 6 hours 
 		}
 		else 
-		{
+		{	//FIXME dead else
 			this.snore(0);
 			this.sleepinessMeter -= 1; //for sleeping for 18 hours  with lights on.
 			this.happinessMeter -= 1;
