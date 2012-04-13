@@ -104,6 +104,7 @@ public class Blob extends Pet  {
 			this.years += 1;
 		}
 	}
+	
 	private void updateHunger(){
 		if (!this.asleep){ //shouldn't die or poke for attention when asleep.
 			if (this.hungerMeter >= 200){
@@ -115,12 +116,15 @@ public class Blob extends Pet  {
 			}
 		}
 	}
-	
+	/**
+	 * medicate the blob, modifiese sickness and happiness
+	 */
 	public void giveMedication(){
 		this.sicknessMeter -= 50;
 		this.happinessMeter -= 40;
 		this.size -= 30;
 	}
+	
 	public void feedMeal(){
 		this.eat(Meal);
 	}
@@ -128,7 +132,12 @@ public class Blob extends Pet  {
 	public void feedSnack(){
 		this.eat(Snack);
 	}
-	
+	/**
+	 * eat food
+	 * decrease hunger meter
+	 * and increase in satiability
+	 * @param food
+	 */
 	public void eat(Food food){
 		//eat Meal or Snack; modifies happinessMeter and hungerMeter
 		this.happinessMeter += food.getTastiness();
@@ -138,8 +147,11 @@ public class Blob extends Pet  {
 			this.hungerMeter=0;
 		}
 	}
+	/**
+	 * Scold
+	 */
 	public void scold(){
-		//scold to +40 to discipline
+		//scold to +40 to discipline maybe also subtract from happiness
 		this.disciplineMeter += 40;
 	}
 	

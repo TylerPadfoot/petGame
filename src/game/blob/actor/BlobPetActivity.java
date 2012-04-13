@@ -23,23 +23,77 @@ import android.widget.*;
 
 public class BlobPetActivity extends Activity {
 	Blob pet = new Blob("",new Color());
+	
 	private EditText mHunger;
 	private EditText mSleepy;
 	private EditText mDiscipline;
 	private EditText mSickness;
 	private EditText mDirty;
-	String savefile = "blob";
+	
+	String savefile = "blob";	
+	
 	private Timer timer = new Timer();
 	
+	OnClickListener mFeedMealListener;
+	OnClickListener mFeedSnackListener;
+	OnClickListener mScoldListener;
+	OnClickListener mCleanListener;
+	OnClickListener mPlayListener;
+	OnClickListener mToggleLightsListener;
+	
+	Intent blobService;
+	public BlobPetActivity(){
+		super();
+		initListeners();
+		blobService = new Intent("game.blob.actor.BlobPetService");
+	}
+	/**
+	 * initialize listener fields
+	 */
+	private void initListeners(){
+		mFeedMealListener = new OnClickListener() {
+	        public void onClick(View v) {
+	            pet.feedMeal();
+	            tempService();
+	        }
+	    };
+	    mFeedSnackListener = new OnClickListener() {
+	        public void onClick(View v) {
+	            pet.feedSnack();
+	            tempService();
+	        }
+	    };
+	    mScoldListener = new OnClickListener() {
+	        public void onClick(View v) {
+	            pet.scold();
+	            tempService();
+	        }
+	    };
+	    mCleanListener = new OnClickListener() {
+	        public void onClick(View v) {
+	            pet.clean();
+	            tempService();
+	        }
+	    };
+	    mPlayListener = new OnClickListener() {
+	        public void onClick(View v) {
+	            pet.play();
+	            tempService();
+	        }
+	    };
+	    mToggleLightsListener = new OnClickListener() {
+	        public void onClick(View v) {
+	        }
+	    };
+	}
+
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        BlobPetActivity.this.startService(new Intent("game.blob.actor.BlobPetService"));
-        
-      
+        BlobPetActivity.this.startService(blobService);
         // Hook up button presses to the appropriate event handler.
         ((Button) findViewById(R.id.feedMeal)).setOnClickListener(mFeedMealListener);
         ((Button) findViewById(R.id.feedSnack)).setOnClickListener(mFeedSnackListener);
@@ -52,9 +106,7 @@ public class BlobPetActivity extends Activity {
         mDiscipline = (EditText) findViewById(R.id.discipline);
         mSickness = (EditText) findViewById(R.id.sickness);
         mDirty = (EditText) findViewById(R.id.dirty);
-        
         updateGameState();
-       
     }
 	private void updateGameState(){
 		timer.scheduleAtFixedRate(
@@ -83,45 +135,7 @@ public class BlobPetActivity extends Activity {
 				, 
 				0, 1000);
 	}
-	
     
-    
-    
-    OnClickListener mFeedMealListener = new OnClickListener() {
-        public void onClick(View v) {
-            pet.feedMeal();
-            tempService();
-        }
-    };
-    OnClickListener mFeedSnackListener = new OnClickListener() {
-        public void onClick(View v) {
-            pet.feedSnack();
-            tempService();
-        }
-    };
-    OnClickListener mScoldListener = new OnClickListener() {
-        public void onClick(View v) {
-            pet.scold();
-            tempService();
-        }
-    };
-    OnClickListener mCleanListener = new OnClickListener() {
-        public void onClick(View v) {
-            pet.clean();
-            tempService();
-        }
-    };
-    OnClickListener mPlayListener = new OnClickListener() {
-        public void onClick(View v) {
-            pet.play();
-            tempService();
-        }
-    };
-    OnClickListener mToggleLightsListener = new OnClickListener() {
-        public void onClick(View v) {
-            //;
-        }
-    };
     public void tempService(){
     	//updates textfields in main.xml to show current stats
         	mHunger.setText(Integer.toString(pet.hungerMeter));
@@ -130,4 +144,13 @@ public class BlobPetActivity extends Activity {
         	mSickness.setText(Integer.toString(pet.sicknessMeter));
         	mDirty.setText(Integer.toString(pet.dirtyMeter));
     	}
+    /**
+     * testing stopping service
+     * should really never be stopped need to be changed later
+     */
+    @Override
+    protected void onStop(){
+    	super.onStop();
+    	BlobPetActivity.this.stopService(blobService);
+    }
     }
