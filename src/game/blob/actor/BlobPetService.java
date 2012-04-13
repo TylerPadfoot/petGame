@@ -7,13 +7,14 @@ import android.app.*;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
 public class BlobPetService extends Service {	
 	private Timer timer = new Timer();
-	private Blob pet=new Blob("",0);
+	private Blob pet=new Blob("",new Color());
 	
 	@Override
     public void onCreate() {
@@ -69,11 +70,11 @@ public class BlobPetService extends Service {
         SharedPreferences.Editor editor = settings.edit();
        	editor.putString("name", pet.name);
        	editor.putBoolean("asleep", pet.asleep);
-        editor.putInt("color", pet.color);
+        editor.putInt("color", pet.color.hashCode());
        	editor.putInt("days", pet.days);
        	editor.putInt("dirtyMeter", pet.dirtyMeter);
        	editor.putInt("disciplineMeter", pet.disciplineMeter);
-       	editor.putInt("fat", pet.fat);
+       	editor.putInt("fat", pet.size);
         editor.putInt("happinessMeter", pet.happinessMeter);
        	editor.putInt("sleepinessMeter", pet.sleepinessMeter);
        	editor.putInt("sicknessMeter", pet.sicknessMeter);
@@ -83,5 +84,9 @@ public class BlobPetService extends Service {
         editor.putBoolean("notify", pet.notify);
        	editor.putString("message", pet.message);
        	editor.commit();
+	}
+	public void onDestroy(){
+		Toast.makeText(this, "Service Destroyed....", Toast.LENGTH_LONG);
+		super.onDestroy();
 	}
 }

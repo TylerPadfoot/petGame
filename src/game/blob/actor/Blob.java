@@ -1,5 +1,7 @@
 package game.blob.actor;
 
+import game.blob.food.*; 
+
 import java.util.*;
 import java.lang.*;
 import android.util.*;
@@ -18,8 +20,8 @@ public class Blob extends Pet  {
 	
 	Blob (String n, Color c){
 		super(n,c);
-		Meal = new TempFood(40, 10, 1);
-		Snack = new TempFood(20, 40, 5);
+		Meal = new FoodOne();
+		Snack = new FoodTwo();
 		hours = 0;//no max
 		days = 0;
 		months = 0;
@@ -127,11 +129,14 @@ public class Blob extends Pet  {
 		this.eat(Snack);
 	}
 	
-	public void eat(Food foodType){
+	public void eat(Food food){
 		//eat Meal or Snack; modifies happinessMeter and hungerMeter
-		this.happinessMeter += foodType.tastiness;
-		this.hungerMeter -= foodType.satiability;
-		this.size += foodType.fat;
+		this.happinessMeter += food.getTastiness();
+		this.hungerMeter -= food.getSatiability();
+		this.size += food.getFat();
+		if(this.hungerMeter <= 0){
+			this.hungerMeter=0;
+		}
 	}
 	public void scold(){
 		//scold to +40 to discipline
