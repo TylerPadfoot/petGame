@@ -1,0 +1,11 @@
+# eclipse files #
+#################
+.classpath
+
+# binary files #
+################
+*.class
+*.o
+*.dll
+*.so
+*.com

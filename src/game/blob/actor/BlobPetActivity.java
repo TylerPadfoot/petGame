@@ -1,25 +1,20 @@
 package game.blob.actor;
 
-import game.blob.actor.*;
+import com.games.blobpet.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.games.blobpet.R;
-
-import android.app.*;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+
 
 public class BlobPetActivity extends Activity {
 	Blob pet = new Blob("",new Color());
