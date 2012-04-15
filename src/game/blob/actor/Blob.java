@@ -20,8 +20,8 @@ public class Blob extends Pet  {
 	
 	Blob (String n, Color c){
 		super(n,c);
-		Meal = new FoodOne();
-		Snack = new FoodTwo();
+		Meal = new IceCreamSandwitch();
+		Snack = new GingerBread();
 		hours = 0;//no max
 		days = 0;
 		months = 0;
