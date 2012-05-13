@@ -76,7 +76,7 @@ public abstract class Pet {
 	public abstract void onWantAttention();
 	/** 
 	 * specifies pet action when sleeping 
-	 */
+	 */	
 	public abstract void onSleep();
 	/** specifies pet action when pooping */
 	public abstract void onPoop();
