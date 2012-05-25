@@ -1,4 +1,4 @@
-package game.blob.actor;
+package game.blob.main;
 
 import com.games.blobpet.*;
 
@@ -113,12 +113,12 @@ public class BlobPetActivity extends Activity {
 				       	pet.asleep = settings.getBoolean("asleep", false);
 				       	pet.color = new Color(); //FIXME need to somehow convert a string into color
 				       	pet.days = settings.getInt("days", 0);
-				       	pet.dirtyMeter = settings.getInt("dirtyMeter", 0);
-				       	pet.disciplineMeter = settings.getInt("disciplineMeter", 50);
+				       	pet.dirty = settings.getInt("dirtyMeter", 0);
+				       	pet.discipline = settings.getInt("disciplineMeter", 50);
 				       	pet.size = settings.getInt("fat", 0);
-				       	pet.happinessMeter = settings.getInt("happinessMeter", 50);
-				       	pet.sleepinessMeter = settings.getInt("sleepinessMeter", 0);
-				       	pet.sicknessMeter = settings.getInt("sicknessMeter", 0);
+				       	pet.happiness = settings.getInt("happinessMeter", 50);
+				       	pet.sleepiness = settings.getInt("sleepinessMeter", 0);
+				       	pet.sickness = settings.getInt("sicknessMeter", 0);
 				       	pet.hours = settings.getInt("hours",0);
 				       	pet.months = settings.getInt("months", 0);
 				       	pet.years = settings.getInt("years",0);
@@ -133,11 +133,11 @@ public class BlobPetActivity extends Activity {
     
     public void tempService(){
     	//updates textfields in main.xml to show current stats
-        	mHunger.setText(Integer.toString(pet.hungerMeter));
-        	mSleepy.setText(Integer.toString(pet.sleepinessMeter));
-        	mDiscipline.setText(Integer.toString(pet.disciplineMeter));
-        	mSickness.setText(Integer.toString(pet.sicknessMeter));
-        	mDirty.setText(Integer.toString(pet.dirtyMeter));
+        	mHunger.setText(Integer.toString(pet.hunger));
+        	mSleepy.setText(Integer.toString(pet.sleepiness));
+        	mDiscipline.setText(Integer.toString(pet.discipline));
+        	mSickness.setText(Integer.toString(pet.sickness));
+        	mDirty.setText(Integer.toString(pet.dirty));
     	}
     /**
      * testing stopping service

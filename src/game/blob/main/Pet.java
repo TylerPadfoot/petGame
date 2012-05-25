@@ -1,4 +1,4 @@
-package game.blob.actor;
+package game.blob.main;
 
 import java.util.*;
 import java.lang.*;
@@ -16,33 +16,17 @@ import android.os.*;
  *
  */
 public abstract class Pet {
-	String name;
-	
-	Time age;
-	long birthTime;
-	
-	int hungerMeter; /** at 100, all bars empty. max 200 = death; */
-	int happinessMeter;
-	int sleepinessMeter; //max 1080
-	int disciplineMeter;
-	int sicknessMeter;
-	int dirtyMeter;
-	
-	Color color;
-	
-	boolean asleep;
-	
-	int size; // max 100 changed from "fat" more generic
-	
+// FOR EASE OF MAKING NEW METHODS 
+	// field definations will be at the end of class
 	public Pet(String n,Color c){
 		color = c;
 		name = n;
-		hungerMeter = 0; //at 100, all bars empty. max 200 = death;
-		happinessMeter = 50;
-		sleepinessMeter = 0; //max 1080
-		disciplineMeter = 50;
-		sicknessMeter = 50;
-		dirtyMeter = 0;
+		hunger = 0; //at 100, all bars empty. max 200 = death;
+		happiness = 50;
+		sleepiness = 0; //max 1080
+		discipline = 50;
+		sickness = 50;
+		dirty = 0;
 		birthTime = System.currentTimeMillis();
 		//FIXME size start at 0?
 		size = 0; // max 100
@@ -59,17 +43,7 @@ public abstract class Pet {
 	public long getAgeInMilli(){
 		return System.currentTimeMillis()-birthTime;
 	}
-	
-	/**
-	 * get the age of the pet
-	 * @return current time in a {@link android.text.format.Time}
-	 * 
-	 */
-	public Time getAge(){
-		age = new Time(Time.getCurrentTimezone());
-		age.set(getAgeInMilli());
-		return age;
-	}
+
 	/**
 	 * sends push notification for attention
 	 */
@@ -86,4 +60,60 @@ public abstract class Pet {
 	public abstract void onHappy();
 	/** specifies pet action when sad */
 	public abstract void onSad();
+	
+	/**
+	 * get the age of the pet
+	 * @return current time in a {@link android.text.format.Time}
+	 * 
+	 */
+	public Time getAge(){
+		age = new Time(Time.getCurrentTimezone());
+		age.set(getAgeInMilli());
+		return age;
+	}
+	public String getName(){
+		return name; 
+	}
+	public int getHunger(){
+		return hunger; 
+	}
+	public int getHappiness(){
+		return happiness;
+	}
+	public int getSleepiness(){
+		return sleepiness;
+	}
+	public int getDiscipline(){
+		return discipline;
+	}
+	public int getSickliness(){
+		return sickness;
+	}
+	public int getDirtiness(){
+		return dirty;
+	}
+	public int getAnger(){
+		return anger;
+	}
+	public boolean isAsleep(){
+		return asleep;
+	}
+	String name;
+	
+	Time age;
+	long birthTime;
+	private int anger;
+	int hunger; /** at 100, all bars empty. max 200 = death; */
+	int happiness;
+	int sleepiness; //max 1080
+	int discipline;
+	int sickness;
+	int dirty;
+	
+	Color color;
+	
+	boolean asleep;
+	
+	int size; // max 100 changed from "fat" more generic
+	
 }

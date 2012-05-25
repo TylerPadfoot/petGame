@@ -1,4 +1,4 @@
-package game.blob.actor;
+package game.blob.main;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -73,11 +73,11 @@ public class BlobPetService extends Service {
 //				0, 10);
 //	}
 	public void updateBlobState(){
-		pet.hungerMeter += 1;
-		pet.happinessMeter -= 1;
+		pet.hunger += 1;
+		pet.happiness -= 1;
 		pet.hours += 1;//to change
-		pet.disciplineMeter -=1;
-		pet.sleepinessMeter += 1;
+		pet.discipline -=1;
+		pet.sleepiness += 1;
 		 pet.updateBlob();
 	}
 	public void saveState(){
@@ -87,12 +87,12 @@ public class BlobPetService extends Service {
        	editor.putBoolean("asleep", pet.asleep);
         editor.putInt("color", pet.color.hashCode());
        	editor.putInt("days", pet.days);
-       	editor.putInt("dirtyMeter", pet.dirtyMeter);
-       	editor.putInt("disciplineMeter", pet.disciplineMeter);
+       	editor.putInt("dirtyMeter", pet.dirty);
+       	editor.putInt("disciplineMeter", pet.discipline);
        	editor.putInt("fat", pet.size);
-        editor.putInt("happinessMeter", pet.happinessMeter);
-       	editor.putInt("sleepinessMeter", pet.sleepinessMeter);
-       	editor.putInt("sicknessMeter", pet.sicknessMeter);
+        editor.putInt("happinessMeter", pet.happiness);
+       	editor.putInt("sleepinessMeter", pet.sleepiness);
+       	editor.putInt("sicknessMeter", pet.sickness);
        	editor.putInt("hours",pet.hours);
        	editor.putInt("months", pet.months);
        	editor.putInt("years",pet.years);

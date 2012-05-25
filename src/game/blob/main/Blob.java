@@ -1,4 +1,4 @@
-package game.blob.actor;
+package game.blob.main;
 
 import game.blob.food.*; 
 
@@ -38,38 +38,38 @@ public class Blob extends Pet  {
 		updateCleansiness();
 	}
 	private void updateCleansiness(){
-		if(dirtyMeter >= 60){
-			this.happinessMeter -= 5;
+		if(dirty >= 60){
+			this.happiness -= 5;
 		}
 	}
 	private void updateSickliness(){
-		if(sicknessMeter >= 70){
+		if(sickness >= 70){
 			//display sick face;
-			this.happinessMeter -= 10;
+			this.happiness -= 10;
 			if (!this.asleep){
 				this.onDoNothing();
 				this.cry();
 				this.message="ACHOOO!";
 			}
-			if (sicknessMeter >= 150){
+			if (sickness >= 150){
 				this.onDeath();
 			}
 		}
 	}
 	private void updateSleepiness(){
 		if (this.asleep){ // if asleep, wake up when sleepiness = 0
-			if (this.sleepinessMeter <= 0){
+			if (this.sleepiness <= 0){
 				this.asleep = false; //wakes up
 			}
 		}
 		else{ //if not asleep, fall asleep when sleepiness = 1080
-			if (this.sleepinessMeter >= 1080){
+			if (this.sleepiness >= 1080){
 				this.onSleep();
 			}
 		}
 		
 		if(!this.asleep){//should not make trouble when asleep. when awake, likelihood to cause trouble increases.
-			int threshold = 100 - this.disciplineMeter;
+			int threshold = 100 - this.discipline;
 			Random generator = new Random(android.os.SystemClock.elapsedRealtime());//generator with randseed
 			int randChance = generator.nextInt(100); // creates a random digit from 0 to 100
 			if(randChance <= threshold){
@@ -79,7 +79,7 @@ public class Blob extends Pet  {
 	}
 	private void updateHappiness() {
 		if (!this.asleep){ //should not cry or bounce around while asleep
-			if (this.happinessMeter <= 30){
+			if (this.happiness <= 30){
 				this.onDoNothing();
 				this.cry();
 				this.message="T_T";
@@ -107,11 +107,11 @@ public class Blob extends Pet  {
 	
 	private void updateHunger(){
 		if (!this.asleep){ //shouldn't die or poke for attention when asleep.
-			if (this.hungerMeter >= 200){
+			if (this.hunger >= 200){
 				this.onDeath();
 			}
-			else if(this.hungerMeter >= 100){
-				this.happinessMeter -= 5;
+			else if(this.hunger >= 100){
+				this.happiness -= 5;
 				this.message="I'm hungry. Feed me! =(";
 			}
 		}
@@ -120,8 +120,8 @@ public class Blob extends Pet  {
 	 * medicate the blob, modifiese sickness and happiness
 	 */
 	public void giveMedication(){
-		this.sicknessMeter -= 50;
-		this.happinessMeter -= 40;
+		this.sickness -= 50;
+		this.happiness -= 40;
 		this.size -= 30;
 	}
 	
@@ -140,11 +140,11 @@ public class Blob extends Pet  {
 	 */
 	public void eat(Food food){
 		//eat Meal or Snack; modifies happinessMeter and hungerMeter
-		this.happinessMeter += food.getTastiness();
-		this.hungerMeter -= food.getSatiability();
+		this.happiness += food.getTastiness();
+		this.hunger -= food.getSatiability();
 		this.size += food.getFat();
-		if(this.hungerMeter <= 0){
-			this.hungerMeter=0;
+		if(this.hunger <= 0){
+			this.hunger=0;
 		}
 	}
 	/**
@@ -152,20 +152,20 @@ public class Blob extends Pet  {
 	 */
 	public void scold(){
 		//scold to +40 to discipline maybe also subtract from happiness
-		this.disciplineMeter += 40;
+		this.discipline += 40;
 	}
 	
 	public void clean(){
 		//takes a shower to set dirty meter to 0
-		this.dirtyMeter = 0;
+		this.dirty = 0;
 	}
 	
 	public void play(){
 		//modifies happinessMeter greatly, slightly adds to dirtyMeter, slightly adds to hungerMeter
 		//TODO - add minigames to alter meter levels.
-		this.happinessMeter += 50;
-		this.dirtyMeter += 20;
-		this.hungerMeter += 20;
+		this.happiness += 50;
+		this.dirty += 20;
+		this.hunger += 20;
 	}
 
 	public void bounceAround() {
@@ -196,13 +196,13 @@ public class Blob extends Pet  {
 		//TODO perhaps eventually, make the system more intelligient, such as a baby blob sleep more than old ones
 		if (true/*gamestate == lightsOff*/){
 			this.snore(1);
-			this.sleepinessMeter -= 3; // for sleeping for 6 hours 
+			this.sleepiness -= 3; // for sleeping for 6 hours 
 		}
 		else 
 		{	//FIXME dead else
 			this.snore(0);
-			this.sleepinessMeter -= 1; //for sleeping for 18 hours  with lights on.
-			this.happinessMeter -= 1;
+			this.sleepiness -= 1; //for sleeping for 18 hours  with lights on.
+			this.happiness -= 1;
 		}
 		this.asleep = true;
 	}
@@ -220,7 +220,7 @@ public class Blob extends Pet  {
 
 	public void onPoop() {
 		//poop chances increased when hunger level > 80
-		this.dirtyMeter += 40;
+		this.dirty += 40;
 	}
 
 	public void cry() {
